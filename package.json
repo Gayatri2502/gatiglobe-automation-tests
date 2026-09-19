@@ -1,0 +1,32 @@
+{
+  "name": "gatiglobe-playwright-tests",
+  "version": "1.0.0",
+  "description": "Functional & automation test suite for GatiGlobe E-Transport ERP (all 4 portals)",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:smoke": "playwright test tests/smoke",
+    "test:auth": "playwright test tests/auth",
+    "test:superadmin": "playwright test tests/superadmin",
+    "test:staff": "playwright test tests/staff-erp",
+    "test:customer": "playwright test tests/customer-portal",
+    "test:driver": "playwright test tests/driver-portal",
+    "test:business-logic": "playwright test tests/business-logic",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome' tests/driver-portal",
+    "report": "playwright show-report",
+    "codegen": "playwright codegen https://www.gatiglobe.in/login"
+  },
+  "keywords": ["playwright", "e2e", "automation", "gatiglobe", "erp"],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^20.14.0",
+    "dotenv": "^16.4.5"
+  }
+}
