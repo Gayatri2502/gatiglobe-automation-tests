@@ -1,51 +1,59 @@
-import { Page, expect } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
-/**
- * Staff ERP Backoffice — fleet owner & operations.
- * Covers modules called out in the pricing brochure's Base Package:
- * Fleet & vehicle management, Trips & dispatch, Customer management,
- * Reports & operational control.
- */
 export class StaffErpPage {
   readonly page: Page;
+  readonly dashboardHeading: Locator;
+  readonly header: Locator;
+  readonly headerNav: Locator;
+  readonly fleetLink: Locator;
+  readonly tripsLink: Locator;
+  readonly customersLink: Locator;
+  readonly reportsLink: Locator;
+  readonly branchesLink: Locator;
+  readonly logoutButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
+    this.dashboardHeading = this.page.getByRole('heading', { name: /dashboard|overview/i });
+    this.header = this.page.getByRole('banner');
+    this.headerNav = this.page.getByRole('navigation');
+    this.fleetLink = this.page.getByRole('link', { name: /fleet|vehicle/i });
+    this.tripsLink = this.page.getByRole('link', { name: /trip|dispatch/i });
+    this.customersLink = this.page.getByRole('link', { name: /customer/i });
+    this.reportsLink = this.page.getByRole('link', { name: /report/i });
+    this.branchesLink = this.page.getByRole('link', { name: /branch/i });
+    this.logoutButton = this.page.getByRole('button', { name: /log ?out|sign ?out/i });
   }
 
-  get dashboardHeading() {
-    return this.page.getByRole('heading', { name: /dashboard|overview/i });
-  }
-
-  nav(label: string) {
+  nav(label: string): Locator {
     return this.page.getByRole('link', { name: new RegExp(label, 'i') });
   }
 
-  async expectLoaded() {
+  async expectLoaded(): Promise<void> {
     await expect(this.dashboardHeading.first()).toBeVisible({ timeout: 15_000 });
   }
 
-  async goToFleet() {
-    await this.nav('fleet|vehicle').first().click();
+  async goToFleet(): Promise<void> {
+    await this.fleetLink.first().click();
   }
 
-  async goToTripsAndDispatch() {
-    await this.nav('trip|dispatch').first().click();
+  async goToTripsAndDispatch(): Promise<void> {
+    await this.tripsLink.first().click();
   }
 
-  async goToCustomers() {
-    await this.nav('customer').first().click();
+  async goToCustomers(): Promise<void> {
+    await this.customersLink.first().click();
   }
 
-  async goToReports() {
-    await this.nav('report').first().click();
+  async goToReports(): Promise<void> {
+    await this.reportsLink.first().click();
   }
 
-  async goToBranches() {
-    await this.nav('branch').first().click();
+  async goToBranches(): Promise<void> {
+    await this.branchesLink.first().click();
   }
 
-  async logout() {
-    await this.page.getByRole('button', { name: /log ?out|sign ?out/i }).click();
+  async logout(): Promise<void> {
+    await this.logoutButton.first().click();
   }
 }

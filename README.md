@@ -1,10 +1,7 @@
 Vinayak
 # GatiGlobe E-Transport ERP — Playwright Test Suite
 
-Functional & automation tests for all four GatiGlobe portals (Super
-Admin, Staff ERP, Customer, Driver) plus a business-logic suite that
-validates the pricing brochure's math. See **[TEST_PLAN.md](./TEST_PLAN.md)**
-for the full testing strategy and phased rollout.
+Customer Portal automation (data-driven via `test-data/syst-customer-portal.json` keyed by testcase name `TCP-20-0*`) — all reusable tiny→lengthy methods in `pages/CustomerPortalPage.ts` (`readonly Locator` in `constructor` via `getByRole`, no `xpath`), scripts only call page methods. Super Admin removed as out-of-scope; only `tests/customer-portal/TCP-20-0*.spec.ts` kept per request, running **1 worker, headed, header active** (`playwright.config.ts: workers:1`). See **[TEST_PLAN.md](./TEST_PLAN.md)** and `docs/PAGE_OBJECT_METHODS.md` for structure.
 
 ## Project structure
 
@@ -20,33 +17,24 @@ gatiglobe-playwright-tests/
 │   └── fixtures.ts               # custom Playwright fixtures (pre-authenticated pages)
 │
 ├── pages/                        # Page Object Model, one per portal
-│   ├── LoginPage.ts               # unified /login + tab selection + super admin login
-│   ├── SuperAdminPage.ts
-│   ├── StaffErpPage.ts
-│   ├── CustomerPortalPage.ts
+│   ├── LoginPage.ts               # unified /login + tab selection
+│   ├── StaffErpPage.ts            # Staff ERP (kept for completeness, all readonly getByRole)
+│   ├── CustomerPortalPage.ts      # Customer portal — all tiny→lengthy reusable at one place (readonly getByRole in constructor)
 │   └── DriverPortalPage.ts
 │
+├── test-data/
+│   └── syst-customer-portal.json  # data-driven for TCP-20-0* via testcase name
+│
 ├── utils/
-│   └── helpers.ts                 # currency formatting, retry, unique strings
+│   └── helpers.ts                 # currency formatting, retry, unique strings, date helpers
 │
 └── tests/
-    ├── smoke/                     # Phase 1 — are all entry points up?
-    │   └── portal-access.spec.ts
-    ├── auth/                      # Phase 2 — login positive/negative per portal
-    │   ├── superadmin-login.spec.ts
-    │   ├── staff-login.spec.ts
-    │   ├── customer-login.spec.ts
-    │   └── driver-login.spec.ts
-    ├── superadmin/                # Phase 3 — functional coverage per portal
-    │   └── tenant-provisioning.spec.ts
-    ├── staff-erp/
-    │   └── core-modules.spec.ts
-    ├── customer-portal/
-    │   └── bookings-tracking.spec.ts
-    ├── driver-portal/
-    │   └── trip-pod-expenses.spec.ts
-    └── business-logic/            # Phase 4 — pricing math vs. brochure
-        └── pricing-calculations.spec.ts
+    └── customer-portal/           # only customer-portal kept (per request)
+        ├── TCP-20-01.spec.ts      # TC-313-01 — all fields filled
+        ├── TCP-20-02.spec.ts      # TC-313-02 — mandatory validation
+        ├── TCP-20-03.spec.ts      # TC-313-03 — without optional
+        ├── TCP-20-04.spec.ts      # TC-313-04 — numeric validation
+        └── TCP-20-05.spec.ts      # TC-313-05 — list + today date
 ```
 
 ## Setup
@@ -57,20 +45,17 @@ npx playwright install --with-deps   # downloads browser binaries
 cp .env.example .env                 # then fill in real credentials if they differ
 ```
 
-## Running tests
+## Running tests (1 worker, headed, header active)
 
 ```bash
-npm test                    # everything, all projects
-npm run test:smoke          # Phase 1 only — fast sanity check
-npm run test:auth           # Phase 2 — all 4 portals' login flows
-npm run test:superadmin     # Phase 3 — one portal at a time
-npm run test:staff
-npm run test:customer
-npm run test:driver
-npm run test:business-logic # Phase 4 — pure pricing-math checks, no browser
-npm run test:ui             # interactive Playwright UI mode (great for debugging)
-npm run test:headed         # see the browser while tests run
-npm run report               # open the last HTML report
+npm test                    # customer-portal only, 1 worker (playwright.config.ts: workers:1)
+npm run test:customer       # same: tests/customer-portal — 15 tests (5×3 browsers)
+npm run test:headed         # headed, 1 worker — app opens visibly, header active checked
+npm run test:ui             # UI mode, 1 worker
+npm run test:debug          # debug mode, 1 worker
+npm run report              # open last HTML report
+npx playwright test --workers=1 --headed  # explicit 1-worker headed
+npx playwright test --grep TCP-20-01      # single testcase by name via JSON key
 ```
 
 Filter by tag (each suite is tagged, e.g. `@auth`, `@staff`, `@business-logic`):

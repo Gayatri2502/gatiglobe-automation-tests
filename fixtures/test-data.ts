@@ -1,7 +1,6 @@
 /**
  * Central test-data module.
  * Values default to what was supplied in
- * "GatiGlobe_Pricing_and_Credentials.pdf" but can be overridden via .env
  * so this file never needs to change per-environment.
  */
 
@@ -9,22 +8,8 @@ export const BASE_URL = process.env.BASE_URL || 'https://www.gatiglobe.in';
 
 export const LOGIN_URLS = {
   unifiedLogin: `${BASE_URL}/login`,
-  superAdmin: `${BASE_URL}/portal/superadmin/login`,
-  customer: `${BASE_URL}/portal/customer/login`,
-  driver: `${BASE_URL}/portal/driver/login`,
-};
-
-export const superAdminUsers = {
-  platformSuperAdmin: {
-    email: process.env.SUPERADMIN_EMAIL || 'admin@bathiyatech.com',
-    password: process.env.SUPERADMIN_PASSWORD || 'changeme123',
-    role: 'Platform Super Admin (Provisioning & Tenants)',
-  },
-  systemSuperAdmin: {
-    email: process.env.SYSADMIN_EMAIL || 'super@admin.test',
-    password: process.env.SYSADMIN_PASSWORD || 'changeme123',
-    role: 'System Super Admin (Default)',
-  },
+  customer: `${BASE_URL}/login?role=customer`,
+  driver: `${BASE_URL}/login?role=driver`,
 };
 
 export const staffErpUsers = {
@@ -136,4 +121,56 @@ export const publishedPricingExamples = [
   { branches: 2, firstYearTotal: 43000, annualRenewal: 20000 },
   { branches: 3, firstYearTotal: 51000, annualRenewal: 28000 },
   { branches: 5, firstYearTotal: 67000, annualRenewal: 44000 },
+];
+
+// ---------------------------------------------------------------------------
+// Customer Portal — New Booking form (US-313)
+// ---------------------------------------------------------------------------
+
+export interface NewBookingFormData {
+  fromLocation?: string;
+  toLocation?: string;
+  goodsDescription?: string;
+  preferredDate?: string; // e.g. '2026-09-25'
+  packages?: string; // form field is text/number input
+  actualWeightKg?: string;
+  expectedPriceInr?: string;
+  specialInstructions?: string;
+}
+
+export const validBookingData: NewBookingFormData = {
+  fromLocation: 'Mumbai',
+  toLocation: 'Pune',
+  goodsDescription: '100 kg of honey',
+  preferredDate: '2026-09-25',
+  packages: '10',
+  actualWeightKg: '100',
+  expectedPriceInr: '5000',
+  specialInstructions: 'Handle with care — fragile glass jars.',
+};
+
+export const validBookingDataNoOptionalFields: NewBookingFormData = {
+  fromLocation: 'Ahmedabad',
+  toLocation: 'Delhi',
+  goodsDescription: '500 boxes of textiles',
+  preferredDate: '2026-09-26',
+  packages: '500',
+  actualWeightKg: '2500',
+  expectedPriceInr: '45000',
+  // specialInstructions intentionally omitted
+};
+
+export const bookingMissingMandatoryFields: NewBookingFormData = {
+  // fromLocation, toLocation, goodsDescription, preferredDate,
+  // packages, actualWeightKg all intentionally left blank
+  expectedPriceInr: '1000',
+};
+
+export const bookingInvalidNumericFields: NewBookingFormData[] = [
+  { ...validBookingData, packages: '0' },
+  { ...validBookingData, packages: '-5' },
+  { ...validBookingData, packages: 'abc' },
+  { ...validBookingData, actualWeightKg: '0' },
+  { ...validBookingData, actualWeightKg: '-10' },
+  { ...validBookingData, actualWeightKg: 'not-a-number' },
 ];

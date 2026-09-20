@@ -1,10 +1,9 @@
 import { test as base, expect } from '@playwright/test';
 import { LoginPage } from '../pages/LoginPage';
-import { SuperAdminPage } from '../pages/SuperAdminPage';
 import { StaffErpPage } from '../pages/StaffErpPage';
 import { CustomerPortalPage } from '../pages/CustomerPortalPage';
 import { DriverPortalPage } from '../pages/DriverPortalPage';
-import { superAdminUsers, staffErpUsers, customerUsers, driverUsers } from './test-data';
+import { staffErpUsers, customerUsers, driverUsers } from './test-data';
 
 /**
  * Extended fixtures: each `*LoggedIn` fixture returns a Page that is already
@@ -13,12 +12,10 @@ import { superAdminUsers, staffErpUsers, customerUsers, driverUsers } from './te
  */
 type Fixtures = {
   loginPage: LoginPage;
-  superAdminPage: SuperAdminPage;
   staffErpPage: StaffErpPage;
   customerPortalPage: CustomerPortalPage;
   driverPortalPage: DriverPortalPage;
 
-  superAdminLoggedIn: SuperAdminPage;
   staffErpLoggedIn: StaffErpPage;
   customerPortalLoggedIn: CustomerPortalPage;
   driverPortalLoggedIn: DriverPortalPage;
@@ -28,9 +25,6 @@ export const test = base.extend<Fixtures>({
   loginPage: async ({ page }, use) => {
     await use(new LoginPage(page));
   },
-  superAdminPage: async ({ page }, use) => {
-    await use(new SuperAdminPage(page));
-  },
   staffErpPage: async ({ page }, use) => {
     await use(new StaffErpPage(page));
   },
@@ -39,16 +33,6 @@ export const test = base.extend<Fixtures>({
   },
   driverPortalPage: async ({ page }, use) => {
     await use(new DriverPortalPage(page));
-  },
-
-  superAdminLoggedIn: async ({ page }, use) => {
-    const login = new LoginPage(page);
-    await login.gotoSuperAdminLogin();
-    await login.loginWithEmail(
-      superAdminUsers.platformSuperAdmin.email,
-      superAdminUsers.platformSuperAdmin.password,
-    );
-    await use(new SuperAdminPage(page));
   },
 
   staffErpLoggedIn: async ({ page }, use) => {
@@ -61,9 +45,15 @@ export const test = base.extend<Fixtures>({
 
   customerPortalLoggedIn: async ({ page }, use) => {
     const login = new LoginPage(page);
-    await login.gotoUnifiedLogin();
-    await login.selectTab('Customer');
-    await login.loginWithEmail(customerUsers.demo.email, customerUsers.demo.password);
+    // Flow: open link https://www.gatiglobe.in/login?role=customer
+    await login.gotoCustomerLogin();
+    // Click Customer tab per [Image 1] SELECT LOGIN AUTHORITY
+    await login.clickCustomer();
+    // Then start entering details: Workspace → Email → Password → Sign in
+    await login.fillWorkspaceIfPresent(customerUsers.workspace);
+    await login.emailField.first().fill(customerUsers.demo.email);
+    await login.passwordField.first().fill(customerUsers.demo.password);
+    await login.submitButton.first().click();
     await use(new CustomerPortalPage(page));
   },
 
@@ -71,7 +61,6 @@ export const test = base.extend<Fixtures>({
     const login = new LoginPage(page);
     await login.gotoUnifiedLogin();
     await login.selectTab('Driver');
-    await login.loginWithMobile(driverUsers.demo.mobile, driverUsers.demo.password);
     await use(new DriverPortalPage(page));
   },
 });

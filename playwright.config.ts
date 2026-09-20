@@ -13,10 +13,10 @@ export default defineConfig({
   testDir: './tests',
   timeout: 45_000,
   expect: { timeout: 10_000 },
-  fullyParallel: true,
+  fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  workers: 1,
   reporter: [
     ['html', { open: 'never' }],
     ['list'],
@@ -34,34 +34,9 @@ export default defineConfig({
   },
 
   projects: [
-    // Desktop browser coverage for Super Admin / Staff ERP / Customer Portal
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: '**/driver-portal/**',
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-      testIgnore: '**/driver-portal/**',
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-      testIgnore: '**/driver-portal/**',
-    },
-
-    // Driver Portal is explicitly "mobile optimised" per the credentials doc —
-    // test it on real mobile viewports/UA.
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 7'] },
-      testMatch: '**/driver-portal/**',
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 14'] },
-      testMatch: '**/driver-portal/**',
     },
   ],
 

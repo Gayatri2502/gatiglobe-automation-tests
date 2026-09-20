@@ -1,0 +1,193 @@
+{
+  "TC-313-01": {
+    "fromLocation": "Mumbai",
+    "toLocation": "Pune",
+    "goodsDescription": "100 kg of honey",
+    "preferredDate": "2026-09-25",
+    "packages": "10",
+    "actualWeightKg": "100",
+    "expectedPriceInr": "5000",
+    "specialInstructions": "Handle with care — fragile glass jars."
+  },
+  "TCP-20-01": {
+    "fromLocation": "Mumbai",
+    "toLocation": "Pune",
+    "goodsDescription": "100 kg of honey",
+    "preferredDate": "2026-09-25",
+    "packages": "10",
+    "actualWeightKg": "100",
+    "expectedPriceInr": "5000",
+    "specialInstructions": "Handle with care — fragile glass jars."
+  },
+  "TC-313-02": {
+    "expectedPriceInr": "1000"
+  },
+  "TCP-20-02": {
+    "expectedPriceInr": "1000"
+  },
+  "TC-313-03": {
+    "fromLocation": "Ahmedabad",
+    "toLocation": "Delhi",
+    "goodsDescription": "500 boxes of textiles",
+    "preferredDate": "2026-09-26",
+    "packages": "500",
+    "actualWeightKg": "2500",
+    "expectedPriceInr": "45000"
+  },
+  "TCP-20-03": {
+    "fromLocation": "Ahmedabad",
+    "toLocation": "Delhi",
+    "goodsDescription": "500 boxes of textiles",
+    "preferredDate": "2026-09-26",
+    "packages": "500",
+    "actualWeightKg": "2500",
+    "expectedPriceInr": "45000"
+  },
+  "TC-313-04": [
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "0",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "-5",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "abc",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "0",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "-10",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "not-a-number",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    }
+  ],
+  "TCP-20-04": [
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "0",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "-5",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "abc",
+      "actualWeightKg": "100",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "0",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "-10",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    },
+    {
+      "fromLocation": "Mumbai",
+      "toLocation": "Pune",
+      "goodsDescription": "100 kg of honey",
+      "preferredDate": "2026-09-25",
+      "packages": "10",
+      "actualWeightKg": "not-a-number",
+      "expectedPriceInr": "5000",
+      "specialInstructions": "Handle with care — fragile glass jars."
+    }
+  ],
+  "TC-313-05": {
+    "fromLocation": "Mumbai",
+    "toLocation": "Pune",
+    "goodsDescription": "100 kg of honey",
+    "preferredDate": "2026-09-25",
+    "packages": "10",
+    "actualWeightKg": "100",
+    "expectedPriceInr": "5000",
+    "specialInstructions": "Handle with care — fragile glass jars."
+  },
+  "TCP-20-05": {
+    "fromLocation": "Mumbai",
+    "toLocation": "Pune",
+    "goodsDescription": "100 kg of honey",
+    "preferredDate": "2026-09-25",
+    "packages": "10",
+    "actualWeightKg": "100",
+    "expectedPriceInr": "5000",
+    "specialInstructions": "Handle with care — fragile glass jars."
+  },
+  "BOOKINGS_DASHBOARD": {
+    "expectedKpis": ["Total Bookings", "Active Lorry Receipts", "Total Invoices"]
+  }
+}
